@@ -11,12 +11,13 @@ export default function Counter() {
     const dispatch = useDispatch()
 
     const handleIncrement = () => {
-        const amount = inputref.current
-        console.log(inputref);        
-        
-        if(amount){
-            dispatch(incrementByAmount(amount))
-        }else{
+        const amount = inputref.current.value
+        console.log(inputref);
+
+        if (amount) {
+            dispatch(incrementByAmount(+amount))
+            inputref.current.value = ""
+        } else {
             alert("Enter a valid input")
         }
     }
@@ -30,7 +31,7 @@ export default function Counter() {
                     <button onClick={() => dispatch(reset())} type="button" className="btn btn-danger">Reset</button>
                     <button onClick={() => dispatch(increment())} type="button" className="btn btn-success">Increment</button>
                 </div>
-                <input key={inputref} className='rounded rounded-3 border border-none ps-2' style={{ height: '50px', width: '250px' }} type="text" placeholder='Enter the number to incremented ' />
+                <input ref={inputref} className='rounded rounded-3 border border-none ps-2' style={{ height: '50px', width: '250px' }} type="text" placeholder='Enter the number to incremented ' />
                 <button onClick={handleIncrement} style={{ height: '50px' }} type="button" className="btn btn-primary rounded rounded-3 ms-3">Increment by amount</button>
             </div>
         </div>
